@@ -1,0 +1,87 @@
+<!DOCTYPE html">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Motor Shop - Admin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="iecss.css" />
+<![endif]-->
+<script type="text/javascript" src="js/boxOver.js"></script>
+</head>
+<body>
+<div id="main_container">
+  <form action="{{url_for('log_out')}}" method="post">
+    <div id="header">
+      <div class="top_right">
+        <input type="submit" value="logout" style="width: 100px; float: right; margin: 5px; box-shadow: 2px; border-radius: 5px;">
+        <div class="languages">
+          <div class="lang_text">Languages:</div>
+          <a href="#" class="lang"><img src="{{url_for('static', filename='images/en.gif')}}" alt="" border="0" /></a> <a href="#" class="lang"><img src="{{url_for('static', filename='images/de.gif')}}" alt="" border="0" /></a> </div>
+        <div class="big_banner"> <a href="#"><img src="images/banner728.jpg" alt="" border="0" /></a> </div>
+      </div>
+      <div id="logo"> <a href="#"><img src="{{url_for('static', filename='images/logo.png')}}" alt="" border="0" height="85" /></a> </div>
+    </div>
+    </form>
+  <div id="main_content">
+    <div id="menu_tab">
+      <ul class="menu">
+        <li><a href="{{url_for('home')}}" class="nav"> Products </a></li>
+        <li class="divider"></li>
+        <li><a href="{{url_for('add_product')}}" class="nav"> Product definition </a></li>
+        <li class="divider"></li>
+        <li><a href="{{url_for('about_us')}}" class="nav"> About us </a></li>
+      </ul>
+    </div>
+    <!-- end of menu tab -->
+    <div class="crumb_navigation"> Navigation: <span class="current">Home</span> </div>
+    <div class="left_content">
+      <div class="border_box">
+        <h3 class="title_box">Hello Admin!</h3>
+        <p>this page is designed to manage shop.</p> </div>
+    </div>
+    <!-- end of left content -->
+    <div class="center_content">
+      <div class="center_title_bar">Latest Products</div>
+      {%if products%}
+      {%for product in products%}
+      <div class="prod_box">
+        <div class="center_prod_box">
+          <div class="product_title"><a href="#">{{product['name']}}</a></div>
+          <div class="product_img"><a href="#"><img src={{product['image_path']}} alt="" border="0" style="height: 100%" /></a></div>
+          <div class="prod_price"><span class="reduce">350$</span> <span class="price">{{product['price']}}$</span></div>
+        </div>
+        <div class="prod_details_tab"> 
+          <form action="{{ url_for('show_detail') }}" method="post">
+            <input type="hidden" value={{product['id']}} name="product id" >
+          <input type="submit"  value="Details" style="width: fit-content; border-radius:5px; text-align: center; border-width:0.5px ; float:left; margin: 0px 8px ;">
+          </form>
+          <form action="{{url_for('delete')}}" method="post">
+            <input type="hidden" value={{product['id']}} name="product id" >
+          <input type="submit"  value="Delete" style="width: fit-content; border-radius:5px; text-align: center; border-width:0.5px; float: right; margin:0px 8px; color: darkred;">
+          </form>
+        </div>
+      </div>
+      {%endfor%}
+      {%endif%}
+    </div>
+    <!-- end of center content -->
+    <div class="right_content">
+      <div class="title_box">Search</div>
+      <div class="border_box">
+        <input type="text" name="newsletter" class="newsletter_input" placeholder="keyword"/>
+        <a href="#" class="join">search</a> </div>
+    <!-- end of right content -->
+    </div>
+  <!-- end of main content -->
+  <div class="footer">
+    <div class="left_footer"> <img src="{{url_for('static', filename='images/footer_logo.png')}}" alt="" height="100%" /> </div>
+    <div class="center_footer"> www.MotorShop.ir. All Rights Reserved 2023<br />
+      <a href="http://csscreme.com"><img src="{{url_for('static', filename='images/csscreme.jpg')}}" alt="csscreme" title="csscreme" border="0" /></a><br />
+      <img src="{{url_for('static', filename='images/payment.gif')}}" alt="" /> </div>
+    <div class="right_footer"> <a href="#">home</a> <a href="#">about</a> <a href="#">contact us</a> </div>
+  </div>
+</div>
+<!-- end of main_container -->
+</body>
+</html>
